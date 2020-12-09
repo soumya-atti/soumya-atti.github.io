@@ -1,0 +1,137 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+<meta name="viewport" content="width = 1050, user-scalable = no" />
+<!-- <script type="text/javascript" src="../../extras/jquery.min.1.7.js"></script> -->
+<script type="text/javascript"  src="../js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="lib/modernizr.2.5.3.min.js"></script>
+</head>
+<body>
+
+<div class="flipbook-viewport">
+	<div class="container">
+		<div class="flipbook">
+			<div class="page" style="background-image:url(../images/ultimate-0000.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0001.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0002.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0003.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0004.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0005.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0006.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0007.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0008.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0009.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0010.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0011.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0012.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0013.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0014.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0015.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0016.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0017.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0018.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0019.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0020.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0021.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0022.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0023.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0024.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0025.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0026.jpg)"></div>
+			<div class="double" style="background-image:url(../images/ultimate-0027.jpg)"></div>
+		</div>
+		<div class="flipbook-control">
+			<span id="prev" style="padding:10px; border-radius: 3px; background-color: rgba(150, 150, 150, 0.596); float: left;">Previous</span>
+			Drag the page corner to turn it
+			<span id="next" style="padding:10px; border-radius: 3px; background-color: rgba(150, 150, 150, 0.596); float: right;">Next</span>
+		</div>
+		
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+function loadApp() {
+	const winHeight = $( window ).height();
+	const winWidth = $( window ).width();
+
+	const singlePageHeight = (winWidth>winHeight)?winHeight-100:(winWidth/2)-100;
+
+	$('.flipbook-viewport .flipbook').css({
+		'width':(singlePageHeight*2)+'px',
+		'height':singlePageHeight+'px',
+		'left':(-singlePageHeight)+'px',
+		'top':(-singlePageHeight/2)+'px'
+	});
+
+	$('.flipbook-viewport .page').css({
+		'width':singlePageHeight+'px',
+		'height':singlePageHeight+'px'
+	});
+
+	$('.flipbook-viewport .double').css({
+		'width':(singlePageHeight*2)+'px',
+		'height':singlePageHeight+'px'
+	});
+
+	$('.flipbook-control').css({
+		'position': 'fixed',
+		'top': (singlePageHeight+60)+'px',
+		'width': (singlePageHeight*2)+'px',
+		'left':((winWidth-(singlePageHeight*2))/2)+'px',
+		'text-align': 'center'
+	});
+
+
+	var flipbook = $('.flipbook');
+
+ 	// Check if the CSS was already loaded
+	
+	if (flipbook.width()==0 || flipbook.height()==0) {
+		setTimeout(loadApp, 10);
+		return;
+	}
+
+	$('.flipbook .double').scissor();
+
+	// Create the flipbook
+
+	$('.flipbook').turn({
+			// Elevation
+
+			elevation: 50,
+			
+			// Enable gradients
+
+			gradients: true,
+			
+			// Auto center this flipbook
+
+			autoCenter: true
+
+	});
+
+	$('#prev').click(()=>$('.flipbook').turn('previous'));
+
+	$('#next').click(()=>$('.flipbook').turn('next'));
+}
+
+// Load the HTML4 version if there's not CSS transform
+
+yepnope({
+	test : Modernizr.csstransforms,
+	yep: ['lib/turn.min.js'],
+	nope: ['lib/turn.html4.min.js'],
+	both: ['lib/scissor.min.js', 'css/double-page.css'],
+	complete: loadApp
+});
+
+</script>
+
+</body>
+</html>
